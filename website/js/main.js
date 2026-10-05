@@ -281,3 +281,17 @@ jQuery(document).ready(function($) {
 	document.addEventListener('keydown', togglePrice);
 	document.addEventListener('click', openFromMenu);
 })();
+
+// Шапка прилипает так, чтобы над экраном оставалось только меню, независимо от высоты верхней строки
+(function () {
+	var h = document.querySelector('.ia-header'), n = h && h.querySelector('.ia-nav');
+	if (!h || !n) return;
+	function fit() {
+		if (!n.offsetParent) { h.style.top = ''; return; }
+		var gap = parseFloat(getComputedStyle(n).top) || 0;
+		h.style.top = -(n.getBoundingClientRect().top - h.getBoundingClientRect().top - gap) + 'px';
+	}
+	fit();
+	window.addEventListener('resize', fit);
+	window.addEventListener('load', fit);
+})();

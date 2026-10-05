@@ -378,3 +378,58 @@ body.home-page .customer-reviews .customer-reviews__item:first-child{display:fle
 .ia-btn,.ia-phone{will-change:transform}
 .ia-scroll-progress{position:fixed;z-index:201;top:0;left:0;width:100%;height:3px;pointer-events:none;transform-origin:left center;transform:scaleX(0);background:var(--lime);box-shadow:0 0 14px rgba(196,241,53,.65)}
 @media(prefers-reduced-motion:reduce){.ia-motion-ready .ia-reveal{opacity:1;transform:none;transition:none}.ia-hero:after,.ia-hero__content,.ia-hero__side,.ia-hero__badge{animation:none;transform:none}.ia-scroll-progress{display:none}.ia-dir:hover,.services-provided a.services-provided__item:hover,.ia-work__item:hover,.ia-work__more:hover,.ia-adv__item:hover{transform:none}}
+
+/* Единая адаптивная типографика для внутренних шаблонов.  Старые страницы
+   задают крупные размеры в пикселях и местами меняют размер всего .wrap;
+   ограничиваем только типографику, не ломая сетку и отступы. */
+body{font-size:16px}
+.wrap,.prices-content,.article{font-size:16px}
+.wrap>h1,.prices>.wrap>h1,h1.text-h1{font-size:clamp(28px,3.2vw,40px)!important;line-height:1.12!important}
+.text-h2{font-size:clamp(24px,2.5vw,32px)!important;line-height:1.15!important}
+.text-h3{font-size:clamp(20px,2vw,25px)!important;line-height:1.2!important}
+.text-h4{font-size:clamp(17px,1.6vw,19px)!important;line-height:1.25!important}
+.left-top-header-banner-info h1{font-size:clamp(26px,3vw,36px)!important;line-height:1.12!important}
+
+@media(max-width:700px){
+  .wrap,.prices-content,.article{font-size:15px}
+  .wrap>h1,.prices>.wrap>h1,h1.text-h1{font-size:28px!important}
+  .text-h2{font-size:24px!important}
+  .text-h3{font-size:20px!important}
+  .text-h4{font-size:17px!important}
+  .article{line-height:1.6}
+}
+
+/* === Адаптивная типографика: последний слой, перекрывает базовый шаблон и прежние медиа-правила === */
+h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__content .main-banner__title h1{font-size:clamp(26px,14px + 1.4vw,40px)!important;line-height:1.12!important}
+.ia-hero h1{font-size:clamp(30px,12px + 2.6vw,56px)!important}
+.ia-hero h1 small{font-size:clamp(18px,8px + 1.4vw,33px)!important}
+.ia-head h2,.text-h2{font-size:clamp(24px,12px + 1.5vw,40px)!important;line-height:1.12!important}
+.text-h3,.lvl2{font-size:clamp(19px,.9rem + .6vw,25px)!important}
+.left-top-header-banner-info h1{font-size:clamp(24px,1rem + 1.5vw,36px)!important}
+.left-top-header-banner-info li,.right-services-list span,.prices-items .right-top-header-banner .label-banner{font-size:clamp(17px,.8rem + .7vw,27px)!important}
+.complex .complex-title{font-size:clamp(22px,.9rem + 1.2vw,33px)!important}
+.info .info-subtitle,.info .info-auto .info-auto-title{font-size:clamp(21px,.9rem + .9vw,30px)!important}
+.footer .wrap .footer-contacts .footer-contacts-phone,.prices-items .prices-callback-brand-page a,.footnote-contact .footnote-contact__phone-number-link{font-size:clamp(20px,.9rem + .8vw,32px)!important}
+.prices .prices-content .prices-items .prices-table .prices-table-header{font-size:clamp(18px,.8rem + .6vw,25px)!important}
+
+/* Шапка: адрес, часы и телефон не переносятся; на средних экранах всё компактнее */
+.ia-info>span:last-child,.ia-info>div:last-child,.ia-phone{white-space:nowrap}
+@media(max-width:1279px) and (min-width:701px){
+  .ia-header__row{gap:16px 24px}
+  .ia-logo__mark{width:44px;height:47px}.ia-logo__text b{font-size:23px}.ia-logo__text small{font-size:11px}
+  .ia-info{gap:10px;font-size:12px}.ia-info__ico{width:32px;height:32px}
+  .ia-phone{font-size:17px;padding:8px 8px 8px 18px;gap:12px}.ia-phone i{width:32px;height:32px}
+}
+/* 701–1100: логотип и телефон в одну строку, адрес и часы под ними; меню без прокрутки */
+@media(max-width:1100px) and (min-width:701px){
+  .ia-logo{width:auto;order:1}.ia-phone{order:2;margin-left:auto}.ia-info{order:3}
+  .ia-nav{overflow:visible}
+  .ia-nav>a,.ia-nav__drop>span{flex:1 1 auto;gap:8px;height:52px;padding:0 10px;font-size:13px}
+  .ia-nav>a svg,.ia-nav__drop>span svg{width:18px;height:18px}
+}
+@media(max-width:900px) and (min-width:701px){.ia-nav>a svg,.ia-nav__drop>span svg{display:none}}
+
+/* Плашка после прайса: во всю ширину экрана, без фото */
+.ia-price-cta{margin:40px calc(50% - 50vw) 0!important;padding:32px max(40px,calc(50vw - 600px))!important;border-radius:0!important;background-image:none!important}
+.ia-price-cta:before{display:none}
+@media(max-width:700px){.ia-price-cta{padding:28px 16px!important}}
