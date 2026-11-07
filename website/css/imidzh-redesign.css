@@ -30,7 +30,7 @@ html{scroll-behavior:smooth}body{background:var(--paper)!important;color:var(--i
 .ia-nav__drop>ul a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;color:#fff!important;font-size:13px;text-decoration:none}.ia-nav__drop>ul a:hover{background:rgba(255,255,255,.08)}.ia-nav__drop>ul img{width:22px;height:22px;filter:invert(1)}
 
 /* Баннер */
-.ia-hero{position:relative;min-height:406px;margin-top:20px;border-radius:24px;overflow:hidden;background:#15191c url('../images/banners/hero-generated.png') right 42%/auto 125% no-repeat;color:#fff;font-family:Montserrat,Arial,sans-serif}
+.ia-hero{position:relative;min-height:406px;margin-top:20px;border-radius:24px;overflow:hidden;background:#15191c url('../images/banners/hero-generated.webp') right 42%/auto 125% no-repeat;color:#fff;font-family:Montserrat,Arial,sans-serif}
 .ia-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,23,26,.97) 0%,rgba(19,23,26,.92) 38%,rgba(19,23,26,.4) 52%,rgba(19,23,26,0) 66%)}
 .ia-hero__content{position:relative;z-index:1;padding:40px 40px 42px}
 .ia-hero__eyebrow{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#c9cfd2}
@@ -170,7 +170,7 @@ a.ia-review:hover .ia-review__link svg{transform:translateX(4px)}
 .ia-work__more:hover{background:#000}
 
 /* Точки обращения */
-.ia-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:12px 0 80px;padding:28px 32px;border-radius:24px;background:var(--ink) url('../images/banners/hero-generated.png') right 30% center/auto 260% no-repeat;position:relative;overflow:hidden;font-family:Montserrat,Arial,sans-serif}
+.ia-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:12px 0 80px;padding:28px 32px;border-radius:24px;background:var(--ink) url('../images/banners/hero-generated.webp') right 30% center/auto 260% no-repeat;position:relative;overflow:hidden;font-family:Montserrat,Arial,sans-serif}
 .ia-cta:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 55%,rgba(26,32,37,.75))}
 .ia-cta>*{position:relative}
 .ia-cta__text{display:flex;flex-direction:column;gap:6px}.ia-cta__text b{color:#fff;font-size:24px;font-weight:700}.ia-cta__text span{max-width:520px;color:#c9cfd2;font-size:14px;line-height:1.45}
