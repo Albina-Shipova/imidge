@@ -115,7 +115,13 @@ jQuery(document).ready(function($) {
 			/* Не дублируем элементы при повторной инициализации. */
 			if(!$title.find(".ia-acc__meta").length){
 				var count = $table.find("tbody .prices-table-item").length;
-				$title.append('<span class="ia-acc__meta"><span>'+count+' '+(count === 1 ? 'услуга' : (count < 5 ? 'услуги' : 'услуг'))+'</span><i aria-hidden="true"></i></span>');
+				var labelWrap = document.createElement("span");
+				labelWrap.className = "ia-acc__labels";
+				while($title[0].firstChild){
+					labelWrap.appendChild($title[0].firstChild);
+				}
+				labelWrap.insertAdjacentHTML("beforeend", '<span class="ia-acc__meta"><span>'+count+' '+(count === 1 ? 'услуга' : (count < 5 ? 'услуги' : 'услуг'))+'</span><i aria-hidden="true"></i></span>');
+				$title[0].appendChild(labelWrap);
 			}
 		});
 	});
