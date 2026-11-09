@@ -295,3 +295,9 @@ jQuery(document).ready(function($) {
 	window.addEventListener('resize', fit);
 	window.addEventListener('load', fit);
 })();
+
+/* Закрытие меню связи снаружи и клавишей Escape. */
+(function(){
+ document.addEventListener('click',function(event){document.querySelectorAll('.ia-contact-widget[open]').forEach(function(widget){if(!widget.contains(event.target))widget.removeAttribute('open');});});
+ document.addEventListener('keydown',function(event){if(event.key!=='Escape')return;document.querySelectorAll('.ia-contact-widget[open]').forEach(function(widget){widget.removeAttribute('open');widget.querySelector('summary').focus();});});
+})();
