@@ -454,3 +454,7 @@ h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__cont
 .ia-contact-widget summary:focus-visible,.ia-contact-widget__menu a:focus-visible{outline:3px solid #659c18;outline-offset:4px}
 @media(max-width:700px){.ia-contact-widget{right:16px;bottom:max(20px,env(safe-area-inset-bottom))}.ia-contact-widget summary{width:56px;height:56px}.ia-contact-widget__menu{bottom:72px}}
 @media(prefers-reduced-motion:reduce){.ia-contact-widget summary{transition:none}}
+
+#btnTop{display:none!important;position:fixed!important;right:24px!important;bottom:100px!important;z-index:999!important;width:48px;height:48px;padding:0!important;border:1px solid #dce2e6!important;border-radius:50%!important;background:#fff!important;color:#1a2025!important;box-shadow:0 4px 18px rgba(0,0,0,.15);cursor:pointer}
+#btnTop.is-visible{display:grid!important;place-items:center}#btnTop svg{width:23px;height:23px}#btnTop:hover{background:var(--lime)!important}#btnTop:focus-visible{outline:3px solid #659c18!important;outline-offset:3px}body:has(.ia-contact-widget[open]) #btnTop{display:none!important}
+@media(max-width:700px){#btnTop{right:16px!important;bottom:max(92px,calc(env(safe-area-inset-bottom) + 72px))!important;width:44px;height:44px}}

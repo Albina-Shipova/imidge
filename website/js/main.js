@@ -301,3 +301,11 @@ jQuery(document).ready(function($) {
  document.addEventListener('click',function(event){document.querySelectorAll('.ia-contact-widget[open]').forEach(function(widget){if(!widget.contains(event.target))widget.removeAttribute('open');});});
  document.addEventListener('keydown',function(event){if(event.key!=='Escape')return;document.querySelectorAll('.ia-contact-widget[open]').forEach(function(widget){widget.removeAttribute('open');widget.querySelector('summary').focus();});});
 })();
+
+/* Возврат к началу страницы. */
+(function(){
+ var button=document.getElementById('btnTop');if(!button)return;
+ function update(){button.classList.toggle('is-visible',window.scrollY>500);}
+ window.addEventListener('scroll',update,{passive:true});update();
+ button.addEventListener('click',function(){window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
+})();
