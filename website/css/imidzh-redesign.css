@@ -434,4 +434,4 @@ h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__cont
 .ia-price-cta:before{display:none}
 @media(max-width:700px){.ia-price-cta{padding:28px 16px!important}}
 
-.ia-footer__credit{margin-top:4px}.ia-footer__credit a{color:inherit;text-decoration:none}.ia-footer__credit a:hover{color:var(--lime);text-decoration:underline}.ia-footer__credit a:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.ia-footer__credit{margin-top:4px}.ia-footer .ia-footer__credit a{color:#d6dde3!important;text-decoration:underline;text-decoration-color:#75818c;text-underline-offset:3px}.ia-footer .ia-footer__credit a:hover{color:var(--lime)!important;text-decoration-color:currentColor}.ia-footer__credit a:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
