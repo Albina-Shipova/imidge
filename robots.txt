@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /_archive/
+Disallow: /_tools/
+Disallow: /.git/
+Disallow: /.claude/
+
+Sitemap: https://imidg.asama.site/sitemap.xml
