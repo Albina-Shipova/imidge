@@ -268,7 +268,7 @@ body{overflow-x:clip}
 h1,.text-h2{font-family:Montserrat,Arial,sans-serif;color:var(--ink)}
 .wrap>h1,.prices>.wrap>h1{margin:6px 0 28px!important;font-size:40px!important;font-weight:700!important;line-height:1.12!important;letter-spacing:-.01em}
 .text-h2{font-size:32px!important;font-weight:700!important;line-height:1.15!important}
-.breadcrumb{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 14px!important;padding:0!important;list-style:none;background:none!important;font:500 12px Montserrat,Arial,sans-serif}
+.breadcrumb{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 14px!important;padding:12px 0 0!important;list-style:none;background:none!important;font:500 12px Montserrat,Arial,sans-serif}
 .breadcrumb-item{display:flex;align-items:center;gap:6px;color:var(--muted)}
 .breadcrumb-item a{color:var(--ink)!important;text-decoration:none}.breadcrumb-item a:hover{text-decoration:underline;text-decoration-color:var(--lime);text-decoration-thickness:2px}
 .breadcrumb-item .separator{width:5px;height:5px;border-radius:50%;background:var(--lime);margin-left:4px}
