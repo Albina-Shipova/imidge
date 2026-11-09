@@ -458,3 +458,15 @@ h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__cont
 #btnTop{display:none!important;position:fixed!important;right:24px!important;bottom:100px!important;z-index:999!important;width:48px;height:48px;padding:0!important;border:1px solid #dce2e6!important;border-radius:50%!important;background:#fff!important;color:#1a2025!important;box-shadow:0 4px 18px rgba(0,0,0,.15);cursor:pointer}
 #btnTop.is-visible{display:grid!important;place-items:center}#btnTop svg{width:23px;height:23px}#btnTop:hover{background:var(--lime)!important}#btnTop:focus-visible{outline:3px solid #659c18!important;outline-offset:3px}body:has(.ia-contact-widget[open]) #btnTop{display:none!important}
 @media(max-width:700px){#btnTop{right:16px!important;bottom:max(92px,calc(env(safe-area-inset-bottom) + 72px))!important;width:44px;height:44px}}
+
+/* Соосные кнопки и компактный список фирменных значков. */
+.ia-contact-widget summary{box-sizing:border-box}
+#btnTop{right:30px!important;box-sizing:border-box!important}
+.ia-contact-widget__menu{display:flex;flex-direction:column;align-items:center;gap:12px;right:0;width:60px;max-width:none;padding:0;border:0;background:none;box-shadow:none;border-radius:0}
+.ia-contact-widget__menu a{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.18);box-sizing:border-box}
+.ia-contact-widget__menu a:hover{background:none;transform:translateY(-2px)}
+.ia-contact-widget__icon{width:52px;height:52px}.ia-contact-widget__icon svg{width:28px;height:28px}
+.ia-contact-widget__icon--phone{background:var(--lime);color:var(--ink)}
+.ia-contact-widget__icon--wa{background:#25d366;color:#fff}
+.ia-contact-widget__icon--tg{background:#fff;color:#229ed9}.ia-contact-widget__icon--tg svg{width:52px;height:52px}
+@media(max-width:700px){#btnTop{right:22px!important}.ia-contact-widget__menu{width:56px}}
