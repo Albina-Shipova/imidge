@@ -5,4 +5,4 @@ Disallow: /_tools/
 Disallow: /.git/
 Disallow: /.claude/
 
-Sitemap: https://imidg.asama.site/sitemap.xml
+Sitemap: https://xn----8sbgfkka5ay3b.xn--p1ai/sitemap.xml

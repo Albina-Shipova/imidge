@@ -51,11 +51,6 @@ jQuery(document).ready(function($) {
 			.addClass('is-active')
 			.attr('aria-current', 'page');
 	}
-	$('.footer-center .footer-menu:first-child').hide();
-	$('.footer').each(function(){
-		if($(this).find('.footer-legal').length) return;
-		$(this).find('.wrap').append('<div class="footer-legal"><p>Имидж Авто не является официальным дилером, дистрибьютором или производителем автомобилей и запасных частей.</p><p>Указанные на сайте цены приведены для ознакомления и не являются публичной офертой. Сайт носит информационный характер и не собирает и не обрабатывает персональные данные посетителей.</p><p>© 2026 Имидж Авто. Все права защищены.<br>ИНН: 0000000000</p></div>');
-	});
 
 	/* Общая кнопка раскрытия всех групп прайса. */
 	$(document).on('click', '#ia-prices-toggle', function(){
@@ -88,22 +83,6 @@ jQuery(document).ready(function($) {
 		$prices.append('<div class="ia-price-cta ia-cta"><div class="ia-cta__text"><b>Нужна помощь с ремонтом?</b><span>Запишитесь, позвоните или задайте вопрос мастеру — подскажем стоимость и ближайшее время.</span></div><div class="ia-cta__btns"><a class="ia-btn ia-btn--lime" href="tel:+79062376365">Позвонить</a><a class="ia-btn ia-btn--ghost" href="'+contactPath+'">Задать вопрос мастеру</a></div></div>');
 	});
 	
-	/* меню цен в планшете и моб */
-	$(".prices .prices-content .prices-items .prices-search .show-prices-menu").click(function(){
-		if($(this).hasClass("active"))
-		{
-			$(this).removeClass("active");
-			$(".prices .prices-content .prices-items .prices-sidebar-mobile").slideUp("fast");
-		}
-		else
-		{
-			$(this).addClass("active");
-			$(".prices .prices-content .prices-items .prices-sidebar-mobile").slideDown("fast");
-		}
-		
-		return false;
-	});
-
 	/* сворачиваемые группы прайса: счётчик услуг в заголовке.
 	   Классы ia-acc/is-open и раскрытие по клику — в нативном блоке в конце файла. */
 	$(".prices-content").has(".prices-table").each(function(){
@@ -112,7 +91,6 @@ jQuery(document).ready(function($) {
 			var $title = $table.find("thead.prices-table-header th.prices-table-header").first();
 			if(!$title.length) return;
 
-			/* Не дублируем элементы при повторной инициализации. */
 			if(!$title.find(".ia-acc__meta").length){
 				var count = $table.find("tbody .prices-table-item").length;
 				$title.append('<span class="ia-acc__meta"><span>'+count+' '+(count === 1 ? 'услуга' : (count < 5 ? 'услуги' : 'услуг'))+'</span><i aria-hidden="true"></i></span>');
@@ -120,29 +98,6 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	function togglePriceTable($header){
-		var $table = $header.closest(".prices-table");
-		var isOpen = $table.hasClass("is-open");
-		$table.toggleClass("is-open", !isOpen);
-		$header.attr("aria-expanded", String(!isOpen));
-	}
-
-	/* мобильное меню */
-	$(".header-fixed .header-fixed-menu").click(function(){
-		if($(this).hasClass("active"))
-		{
-			$(this).removeClass("active");
-			$(".header-fixed .header-fixed-main-menu").slideUp("fast");
-		}
-		else
-		{
-			$(this).addClass("active");
-			$(".header-fixed .header-fixed-main-menu").slideDown("fast");
-		}
-		
-		return false;
-	});
-	
 	/* фильтр услуг */
 	$("#spterm").on("input paste", function(){
 		var value = $(this).val().toLowerCase();
@@ -203,16 +158,15 @@ jQuery(document).ready(function($) {
 	});
 });
 
-/* Резервный нативный обработчик аккордеона прайса. */
+/* Анимации и аккордеон прайса. */
 (function(){
-	/* Асama-inspired motion: deliberate reveals, a restrained hero parallax and tactile CTAs. */
 	function initMotion(){
 		var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		var body = document.body;
 		if(!body) return;
 		body.classList.add('ia-motion-ready');
 		var progress = document.createElement('div'); progress.className = 'ia-scroll-progress'; progress.setAttribute('aria-hidden','true'); body.appendChild(progress);
-		// Animate individual items, never a tall section and its children together.
+		// Родитель и вложенные карточки не должны анимироваться одновременно.
 		var selector = '.ia-head,.ia-dir,.services-provided__item,.ia-adv__item,.ia-reviews > *,.ia-work__item,.ia-cta,.ia-brands__group,.prices-table,.right-services-list,.header-top-banner-models,.contacts-page__map,.article > *';
 		var revealTargets = Array.prototype.filter.call(document.querySelectorAll(selector), function(el){
 			return !el.querySelector(selector);
@@ -221,14 +175,14 @@ jQuery(document).ready(function($) {
 			el.classList.add('ia-reveal');
 			var siblings = Array.prototype.filter.call(el.parentNode.children, function(child){return child.matches(selector);});
 			el.style.setProperty('--ia-delay', (siblings.indexOf(el) % 4) * 70 + 'ms');
-			// Preserve content already on screen when deferred scripts start.
+			// Уже видимый контент не скрываем при запуске отложенного скрипта.
 			if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
 		});
 		if(reduced || !('IntersectionObserver' in window)){ Array.prototype.forEach.call(revealTargets, function(el){el.classList.add('is-visible');}); }
 		else {
 			var observer = new IntersectionObserver(function(entries){ entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, {threshold:0, rootMargin:'0px 0px -40px'});
 			revealTargets.forEach(function(el){if(!el.classList.contains('is-visible')) observer.observe(el);});
-			// Keyboard navigation must reveal a target immediately, too.
+			// Переход с клавиатуры сразу показывает элемент.
 			document.addEventListener('focusin', function(event){var el = event.target.closest('.ia-reveal'); if(el){el.classList.add('is-visible'); observer.unobserve(el);}});
 		}
 		if(reduced) return;
@@ -297,6 +251,11 @@ jQuery(document).ready(function($) {
 	var h = document.querySelector('.ia-header'), n = h && h.querySelector('.ia-nav');
 	if (!h || !n) return;
 	function fit() {
+		var mobile = window.matchMedia('(max-width: 700px)').matches;
+		var headerStyle = getComputedStyle(h);
+		var overlap = mobile ? h.getBoundingClientRect().height : n.getBoundingClientRect().height + (parseFloat(getComputedStyle(n).top) || 0) + (parseFloat(headerStyle.paddingBottom) || 0);
+		document.documentElement.style.setProperty('--ia-anchor-offset', Math.ceil(overlap + 16) + 'px');
+		if (window.matchMedia('(max-width: 700px)').matches) { h.style.top = '0px'; return; }
 		if (!n.offsetParent) { h.style.top = ''; return; }
 		var gap = parseFloat(getComputedStyle(n).top) || 0;
 		h.style.top = -(n.getBoundingClientRect().top - h.getBoundingClientRect().top - gap) + 'px';
@@ -304,6 +263,51 @@ jQuery(document).ready(function($) {
 	fit();
 	window.addEventListener('resize', fit);
 	window.addEventListener('load', fit);
+	if (window.ResizeObserver) new ResizeObserver(fit).observe(h);
+})();
+
+/* Мобильная навигация. */
+(function(){
+ function init(){
+  document.querySelectorAll('.ia-header .ia-nav').forEach(function(nav, index){
+   var header=nav.closest('.ia-header');
+   var mobile=window.matchMedia('(max-width: 700px)');
+   var button=document.createElement('button');
+   nav.id=nav.id || 'ia-navigation-'+index;
+   button.type='button'; button.className='ia-menu-toggle';
+   button.setAttribute('aria-controls',nav.id); button.setAttribute('aria-expanded','false');
+   button.innerHTML='<span>Меню</span><span class="ia-menu-toggle__icon" aria-hidden="true">☰</span>';
+   nav.before(button); header.classList.add('ia-menu-ready');
+   var row=header.querySelector('.ia-header__row');
+   function placeButton(){if(mobile.matches && row)row.appendChild(button);else nav.before(button);}
+   placeButton(); mobile.addEventListener('change',placeButton);
+   function close(){
+    header.classList.remove('ia-menu-open'); button.setAttribute('aria-expanded','false');
+    button.querySelector('.ia-menu-toggle__icon').textContent='☰';
+    nav.querySelectorAll('.ia-nav__drop').forEach(function(drop){drop.classList.remove('is-open');drop.querySelector('span').setAttribute('aria-expanded','false');});
+   }
+   button.addEventListener('click',function(){
+    if(header.classList.contains('ia-menu-open')){close();return;}
+    header.classList.add('ia-menu-open');button.setAttribute('aria-expanded','true');
+    button.querySelector('.ia-menu-toggle__icon').textContent='×';
+   });
+   nav.querySelectorAll('.ia-nav__drop').forEach(function(drop, i){
+    var trigger=drop.querySelector('span'), panel=drop.querySelector('ul');
+    if(!trigger || !panel)return;
+    panel.id=panel.id || nav.id+'-services-'+i;
+    trigger.setAttribute('role','button');trigger.tabIndex=0;
+    trigger.setAttribute('aria-controls',panel.id);trigger.setAttribute('aria-expanded','false');
+    function toggle(){if(!mobile.matches)return;var open=drop.classList.toggle('is-open');trigger.setAttribute('aria-expanded',String(open));}
+    trigger.addEventListener('click',toggle);
+    trigger.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+   });
+   nav.addEventListener('click',function(e){if(mobile.matches && e.target.closest('a'))close();});
+   document.addEventListener('click',function(e){if(!header.contains(e.target))close();});
+   document.addEventListener('keydown',function(e){if(e.key==='Escape' && header.classList.contains('ia-menu-open')){close();button.focus();}});
+   mobile.addEventListener('change',close);
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
 /* Закрытие меню связи снаружи и клавишей Escape. */

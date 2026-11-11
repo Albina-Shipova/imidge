@@ -254,7 +254,7 @@ a.ia-review:hover .ia-review__link svg{transform:translateX(4px)}
 .prices .prices-content .ia-acc .prices-table.ia-empty{display:none!important}
 /* Прайс: закреплённое меню направлений справа */
 body{overflow-x:clip}
-.prices .prices-content .prices-table{scroll-margin-top:24px}
+#prices-list-articles,.prices .prices-content .prices-table{scroll-margin-top:var(--ia-anchor-offset,110px)}
 .ia-mobile-price-menu,.ia-mobile-price-panel{display:none}
 .ia-price-cta{margin:22px 0 0;padding:24px 28px}
 @media(max-width:991px){.ia-mobile-price-menu{display:flex!important}}
@@ -361,7 +361,7 @@ body.home-page .customer-reviews .customer-reviews__item:first-child{display:fle
 .ia-band-dark .ia-cta{margin-bottom:72px;background:#242c32;background-image:radial-gradient(circle at 100% 0,rgba(201,239,49,.12),transparent 55%);border:1px solid rgba(255,255,255,.06)}
 @media(max-width:700px){.ia-adv{margin-bottom:64px}.ia-band-dark{padding-top:48px;margin-bottom:56px}.ia-band-dark .ia-cta{margin-bottom:48px}}
 
-/* Motion layer — inspired by the calm reveals and tactile hover states of Asama. */
+/* Анимации появления и наведения. */
 .ia-motion-ready .ia-reveal{opacity:0;transform:translate3d(0,30px,0);transition:opacity .8s cubic-bezier(.22,.65,.3,1),transform .8s cubic-bezier(.22,.65,.3,1);transition-delay:var(--ia-delay,0ms)}
 .ia-motion-ready .ia-reveal.ia-reveal--left{transform:translate3d(-34px,0,0)}
 .ia-motion-ready .ia-reveal.ia-reveal--right{transform:translate3d(34px,0,0)}
@@ -399,7 +399,7 @@ body{font-size:16px}
   .article{line-height:1.6}
 }
 
-/* === Адаптивная типографика: последний слой, перекрывает базовый шаблон и прежние медиа-правила === */
+/* Адаптивные размеры заголовков. */
 h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__content .main-banner__title h1{font-size:clamp(26px,14px + 1.4vw,40px)!important;line-height:1.12!important}
 .ia-hero h1{font-size:clamp(30px,12px + 2.6vw,56px)!important}
 .ia-hero h1 small{font-size:clamp(18px,8px + 1.4vw,33px)!important}
@@ -484,4 +484,37 @@ h1,.text-h1,.wrap>h1,.prices>.wrap>h1,h1.text-h1,.main-banner .main-banner__cont
 }
 @media(max-width:700px){
   .ia-ct__btns .ia-btn{flex:1 1 100%}
+}
+
+/* Мобильное сворачиваемое меню. */
+.ia-menu-toggle{display:none}
+@media(max-width:700px){
+ .ia-header.ia-menu-ready{top:0!important;padding:12px 0;background:var(--paper)}
+ .ia-menu-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:12px;padding:12px 18px;border:0;border-radius:14px;background:var(--ink);color:#fff;font:600 15px Montserrat,Arial,sans-serif;cursor:pointer}
+ .ia-menu-toggle__icon{font-size:24px;line-height:24px;color:var(--lime)}
+ .ia-menu-ready .ia-nav{display:none;position:relative;top:auto;margin-top:8px;overflow-x:hidden;overflow-y:auto;max-height:55vh;max-height:55dvh;overscroll-behavior:contain;flex-direction:column;border-radius:14px}
+ .ia-menu-open .ia-nav{display:flex}
+ .ia-menu-ready .ia-nav>a,.ia-menu-ready .ia-nav__drop>span{flex:none;justify-content:flex-start;gap:12px;width:100%;height:auto;min-height:48px;padding:12px 14px;box-sizing:border-box}
+ .ia-menu-ready .ia-nav>a:before,.ia-menu-ready .ia-nav__drop:before{display:none}
+ .ia-menu-ready .ia-nav__drop{display:block;flex:none}
+ .ia-menu-ready .ia-nav__drop>span:after{content:'+';margin-left:auto;font-size:22px}
+ .ia-menu-ready .ia-nav__drop.is-open>span:after{content:'−'}
+ .ia-menu-ready .ia-nav__drop>ul{display:none;position:static;min-width:0;margin:4px 0;padding:8px;box-shadow:none;border-radius:10px}
+ .ia-menu-ready .ia-nav__drop.is-open>ul{display:block}
+ .ia-menu-toggle:focus-visible,.ia-menu-ready .ia-nav__drop>span:focus-visible{outline:2px solid #7cc11f;outline-offset:3px}
+}
+
+/* Компактная шапка телефона: логотип с меню и одна строка звонка. */
+@media(max-width:700px){
+ .ia-header.ia-menu-ready{padding:8px 0}
+ .ia-menu-ready .ia-header__row{gap:8px;justify-content:space-between}
+ .ia-menu-ready .ia-logo{order:0;flex:1;min-width:0;margin:0;gap:8px}
+ .ia-menu-ready .ia-logo__mark{width:36px;height:38px}
+ .ia-menu-ready .ia-logo__text b{font-size:18px}
+ .ia-menu-ready .ia-logo__text small{font-size:9px;margin-top:4px}
+ .ia-menu-ready .ia-menu-toggle{order:1;flex:none;width:42px;height:38px;margin:0;padding:7px;justify-content:center;border-radius:10px}
+ .ia-menu-ready .ia-menu-toggle>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .ia-menu-ready .ia-phone{order:2;width:100%;margin:0;padding:6px 12px;min-height:32px;box-sizing:border-box;gap:8px;border-radius:10px;font-size:14px;line-height:20px;box-shadow:none}
+ .ia-menu-ready .ia-phone>svg{width:16px;height:16px}
+ .ia-menu-ready .ia-phone i{display:none}
 }
