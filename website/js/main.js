@@ -212,15 +212,25 @@ jQuery(document).ready(function($) {
 		if(!body) return;
 		body.classList.add('ia-motion-ready');
 		var progress = document.createElement('div'); progress.className = 'ia-scroll-progress'; progress.setAttribute('aria-hidden','true'); body.appendChild(progress);
-		var revealTargets = document.querySelectorAll('.ia-dirs,.services-provided,.ia-adv,.ia-work,.ia-cta,.ia-band-dark,.prices-content,.right-services-list,.header-top-banner-models,.contacts-page__map,.article > *');
+		// Animate individual items, never a tall section and its children together.
+		var selector = '.ia-head,.ia-dir,.services-provided__item,.ia-adv__item,.ia-reviews > *,.ia-work__item,.ia-cta,.ia-brands__group,.prices-table,.right-services-list,.header-top-banner-models,.contacts-page__map,.article > *';
+		var revealTargets = Array.prototype.filter.call(document.querySelectorAll(selector), function(el){
+			return !el.querySelector(selector);
+		});
 		Array.prototype.forEach.call(revealTargets, function(el, index){
 			el.classList.add('ia-reveal');
-			if(index % 5 === 1) el.classList.add('ia-reveal--left');
-			if(index % 5 === 3) el.classList.add('ia-reveal--right');
-			el.style.setProperty('--ia-delay', Math.min(index % 4, 3) * 70 + 'ms');
+			var siblings = Array.prototype.filter.call(el.parentNode.children, function(child){return child.matches(selector);});
+			el.style.setProperty('--ia-delay', (siblings.indexOf(el) % 4) * 70 + 'ms');
+			// Preserve content already on screen when deferred scripts start.
+			if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
 		});
 		if(reduced || !('IntersectionObserver' in window)){ Array.prototype.forEach.call(revealTargets, function(el){el.classList.add('is-visible');}); }
-		else { var observer = new IntersectionObserver(function(entries){ entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, {threshold:.12, rootMargin:'0px 0px -8%'}); Array.prototype.forEach.call(revealTargets, function(el){observer.observe(el);}); }
+		else {
+			var observer = new IntersectionObserver(function(entries){ entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); }, {threshold:0, rootMargin:'0px 0px -40px'});
+			revealTargets.forEach(function(el){if(!el.classList.contains('is-visible')) observer.observe(el);});
+			// Keyboard navigation must reveal a target immediately, too.
+			document.addEventListener('focusin', function(event){var el = event.target.closest('.ia-reveal'); if(el){el.classList.add('is-visible'); observer.unobserve(el);}});
+		}
 		if(reduced) return;
 		var hero = document.querySelector('.ia-hero'), ticking = false;
 		function update(){ ticking=false; var y=Math.min(window.scrollY || 0, 520); if(hero) hero.style.setProperty('--ia-hero-shift', (y * .045) + 'px'); var total=document.documentElement.scrollHeight-window.innerHeight; progress.style.transform='scaleX('+(total>0?Math.min(1,Math.max(0,(window.scrollY||0)/total)):0)+')'; }
